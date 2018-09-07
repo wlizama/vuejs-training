@@ -1,0 +1,14 @@
+{
+  "name": "vuejs-training",
+  "version": "1.0.0",
+  "description": "Repositorio para pruebas con VueJS Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wilder",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "2.5.17"
+  }
+}
