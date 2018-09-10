@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>02 - Conocimientos Esenciales | La instancia de Vue</title>
+</head>
+<body>
+    
+    <div id="app01">
+        <ul>
+            <todo-item
+                v-for="item in my_todo_list"
+                v-bind:todo="item"
+                v-bind:key="item.id">
+            </todo-item>
+        </ul>
+    </div>
+
+    <script>
+
+        /*
+        * En Vue un componente es una instancia de Vue con opciones predefinidas.
+        */
+        Vue.component("todo-item", {
+            props: ["todo"],
+            template: "<li>{{ todo.text }}</li>"
+        })
+
+        const app01 = new Vue({
+            el : "#app01",
+            data : {
+                my_todo_list : [
+                    { id: 0, text: "2 kg Vegetales" },
+                    { id: 1, text: "4 kg Proteina" },
+                    { id: 2, text: "1/4 kg Especias" },
+                    { id: 3, text: "5 kg Fruta" },
+                    { id: 4, text: "2 lt Bebidas" }
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
