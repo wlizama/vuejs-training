@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>Conocimientos Esenciales</title>
+</head>
+<body>
+    <fieldset id="app01">
+        <legend>
+            <b>DECLARACIÓN Y RENDERING</b>
+        </legend>
+
+        <h3>{{ msg }}</h3>
+
+        <p v-bind:title="title">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo
+            voluptas, tempore, magnam omnis cupiditate recusandae fugit atque
+            minima pariatur accusantium, nesciunt dignissimos. Ex 
+            distinctio quas at cupiditate minima enim soluta.
+        </p>
+    </fieldset>
+    
+    <br>
+
+    <fieldset id="app02">
+        <legend>
+            <b>CONDICIONALES Y BUCLES</b>
+        </legend>
+
+        <div v-if="es_visible">Soy visible solo por una condición</div>
+        
+        <ol>
+            <li v-for="todo in todos">{{ todo.text }}</li>
+        </ol>
+    </fieldset>
+
+    <br>
+
+    <fieldset id="app03">
+        <legend>
+            <b>MANEJANDO ENTRADA DE USUARIO</b>
+        </legend>
+
+        <div>{{ texto }}</div>
+        <button v-on:click="reverseMessage">Revertir Texto</button>
+
+        <br>
+        <br>
+
+        <div>{{ input_textillo }}</div>
+        <input v-model="input_textillo">
+    </fieldset>
+
+    <script>
+        /*
+        * Para cambiar el texto solo basta con app01.msg = "Hey You!"
+        * Se puede asignar valor a atributos HTML
+        * El atributo "v-bind" es llamado "directiva"
+        * Las directivas están precedidas por "v-" para indicar que son atributos especiales
+        * provistos por Vue, aplican un comportamiento reactivo especial al DOM renderizado.
+        */
+        const app01 = new Vue({
+            el : "#app01",
+            data: {
+                msg : "Hi VueJS Framework !!!",
+                title : `Página cargada en ${new Date()}`
+            }
+        })
+
+
+        /*
+        * v-if app02.es_visible = false destruye del DOM el elemento y true lo reconstruye
+        * v-for Renderice el elemento o bloque varias veces en función de los datos de origen.
+        * app02.todos.push({ text: "Sleep on work" })  inserta un nuevo elemento LI en el DOM
+        */
+        const app02 = new Vue({
+            el : "#app02",
+            data : {
+                es_visible: true,
+                todos : [
+                    { text: "Take a taxi" },
+                    { text: "Walk 2km" },
+                    { text: "Buy a coffee" },
+                    { text: "Climbing stairs" },
+                    { text: "Seat down" },
+                ]
+            }
+        })
+
+
+        /*
+        * Para permitir que los usuarios interactúen con su aplicación, podemos usar la
+        * directiva "v-on" para adjuntar escuchadores de eventos que invocan métodos
+        * en instancias de Vue.
+        * La directiva "v-model" hace que la vinculación bidireccional entre la entrada del
+        * formulario y el estado de la aplicación sea muy sencilla
+        */
+        const app03 = new Vue({
+            el: "#app03",
+            data : {
+                texto : "Este texto reacciona con un click",
+                input_textillo : "texto en input"
+            },
+            methods: {
+                reverseMessage: function () {
+                    this.texto = this.texto.split('').reverse().join('')
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
