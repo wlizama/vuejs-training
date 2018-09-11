@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>03 - Conocimientos Esenciales | Propiedades Calculadas vs Watches</title>
+</head>
+<body>
+    
+    <div id="app01">{{ full_name }}</div>
+
+    <div id="app02">{{ full_name }}</div>
+
+    <script>
+
+        /*
+        * Watcher
+        */
+        const app01 = new Vue({
+            el : "#app01",
+            data : {
+                first_name : "Wily",
+                last_name : "Colon",
+                full_name : "Wily Colon"
+            },
+            watch : {
+                first_name : function (val) {
+                    this.full_name = val + " " + this.last_name
+                },
+                last_name : function (val) {
+                    this.full_name = this.first_name + " " + val
+                }
+            }
+        })
+
+
+        /*
+        * Computed
+        */
+        const app02 = new Vue({
+            el : "#app02",
+            data : {
+                first_name : "Wily",
+                last_name : "Colon"
+            },
+            computed : {
+                full_name : function () {
+                    return this.first_name + " " + this.last_name
+                }
+            }
+        })
+    </script>
+</body>
+</html>
