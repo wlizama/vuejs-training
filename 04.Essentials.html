@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>04 - Conocimientos Esenciales | Clases y Vinculación de Estilos</title>
+
+    <style>
+        .main-text {
+            font-size: 1.5em;
+            font-family: Arial, Helvetica, sans-serif;
+            font-style: normal;
+            border: 2px solid #CCC;
+            color: #444;
+            border-radius: 1em;
+            padding: .7em;
+            margin: 1.8em 1em;
+        }
+        .ok { border-color: green; }
+        .error { border-color: red; }
+        .warning { border-color: #f3d920; }
+        .info { border-color: #6dade8; }
+        .icon-text::before {
+            content: "!";
+            font-size: 1.8em;
+            margin-left: -1em;
+            margin-top: -1em;
+            width: 1em;
+            height: 1em;
+            position: absolute;
+            border: inherit;
+            text-align: center;
+            line-height: 1em;
+            border-radius: 50px;
+            color: inherit;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app01">
+        <p class="main-text" v-bind:class="{ 'icon-text' : icon_text }">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit
+            nostrum, amet culpa ex harum corporis mollitia doloremque. Impedit omnis
+            vitae, nulla sapientelaudantium voluptas quaerat reprehenderit,
+            cupiditate quia suscipit veritatis?
+        </p>
+
+        <p class="main-text" v-bind:class="class_computed">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit
+            nostrum, amet culpa ex harum corporis mollitia doloremque. Impedit omnis
+            vitae, nulla sapientelaudantium voluptas quaerat reprehenderit,
+            cupiditate quia suscipit veritatis?
+        </p>
+
+        <p class="main-text" v-bind:class="[warning_class, icon_text_class]">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit
+            nostrum, amet culpa ex harum corporis mollitia doloremque. Impedit omnis
+            vitae, nulla sapientelaudantium voluptas quaerat reprehenderit,
+            cupiditate quia suscipit veritatis?
+        </p>
+
+        <p class="main-text" v-bind:class="[status_msg == 0 ? ok_class : '', icon_text_class]">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit
+            nostrum, amet culpa ex harum corporis mollitia doloremque. Impedit omnis
+            vitae, nulla sapientelaudantium voluptas quaerat reprehenderit,
+            cupiditate quia suscipit veritatis?
+        </p>
+    </div>
+
+    <script>
+
+        /*
+        * https://vuejs.org/v2/guide/class-and-style.html
+        */
+        const app01 = new Vue({
+            el : "#app01",
+            data : {
+                status_msg : null,
+                icon_text : false,
+                ok_class : "ok",
+                error_class : "error",
+                warning_class : "warning",
+                icon_text_class : "icon-text"
+            },
+            computed : {
+                class_computed : function () {
+                    return {
+                        ok : this.status_msg == 0,
+                        warning : this.status_msg == -1,
+                        error : this.status_msg == -2,
+                        info : this.status_msg == 1,
+                        'icon-text' : this.status_msg !==null && this.icon_text
+                    }
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
