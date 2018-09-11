@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>05 - Conocimientos Esenciales | Rendering Condicional</title>
+
+</head>
+<body>
+    
+    <div id="app01">
+        <fieldset>
+            <legend><h3>Condicional para mostrar Fecha</h3></legend>
+            <div v-if="mostrar_fecha">Fecha Actual: {{ fecha_actual }}</div>
+            <div v-else>No se muestra Fecha</div>
+        </fieldset>
+
+        <br>
+
+        <fieldset>
+            <legend><h3></h3>Condicional para un número aleatorio</h3></legend>
+            <div v-if="random_number <= 25">{{ random_number}} Menor a 25</div>
+            <div v-else-if="random_number <= 50">{{ random_number}} Menor a 50</div>
+            <div v-else-if="random_number <= 75">{{ random_number}} Menor a 75</div>
+            <div v-else>{{ random_number}} Mayor a 75</div>
+        </fieldset>
+
+        <template v-if="mostrar_grupo">
+            <fieldset>
+                <h3>Cabecera</h3>
+                <section>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+                    ducimus culpa voluptas nemo exercitationem rem consequuntur doloribus
+                    esse, quis nostrum sunt tempora porro consequatur quia molestiae. 
+                    Debitis facilis itaque iste?
+                </section>
+                <footer>© Copyright | • autor</footer>
+            </fieldset>
+        </template>
+
+        <br>
+
+        <fieldset>
+            <legend><h3>Elementos Reusables</h3></legend>
+
+            <div>
+                <h3>Sin el atributo "<code>key</code>"</h3>
+                <!-- Usa los mismos elementos y reemplaza los valores de los atributos en común -->
+                <template v-if="login_type === 'user_name'">
+                    <label>User name</label>
+                    <input id="txtUser" placeholder="Ingresar su nombre de usuario">
+                </template>
+                <template v-else>
+                    <label>Email</label>
+                    <input id="txtEmail" placeholder="Ingresar su correo">
+                </template>
+            </div>
+            
+            <div>
+                <h3>Con el atributo "<code>key</code>"  - no reutulizarlos</h3>
+                <!-- Reemplaza los elementos en común por completo -->
+                <template v-if="login_type === 'user_name'">
+                    <label>User name</label>
+                    <input id="txtUser1" placeholder="Ingresar su nombre de usuario" key="username-input">
+                </template>
+                <template v-else>
+                    <label>Email</label>
+                    <input id="txtEmail1" placeholder="Ingresar su correo" key="email-input    ">
+                </template>
+            </div>
+            
+            <br>
+
+            <button v-on:click="toogleLoginType">Toogle Login Type</button>
+        </fieldset>
+
+        <fieldset>
+            <legend><h3>Directiva <code>v-show</code></h3></legend>
+            <div v-show="mostrar_lorem_text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati ipsum laudantium saepe 
+                reprehenderit minima architecto provident dignissimos. Sequi fugiat animi sapiente dolorem
+                eveniet nostrum ullam provident asperiores. Aut, nihil enim.
+            </div>
+        </fieldset>
+    </div>
+
+    <script>
+
+        /*
+        * Un elemento "v-else" debe seguir inmediatamente a un elemento "v-if" o 
+        * "v-else-if"; de lo contrario, no será reconocido.
+        * 
+        * Con "v-show" el elemento siempre se representará y permanecerá en el DOM; 
+        * solo alternara la propiedad CSS "display".
+        * https://vuejs.org/v2/guide/conditional.html
+        */
+        const app01 = new Vue({
+            el : "#app01",
+            data : {
+                fecha_actual : new Date().toDateString(),
+                mostrar_fecha : false,
+                random_number : parseInt(Math.random() * 100),
+                mostrar_grupo : false,
+                login_type : "user_name",
+                mostrar_lorem_text : false
+            },
+            methods : {
+                toogleLoginType : function () {
+                    this.login_type = (this.login_type === 'user_name' ? 'email' : 'user_name')
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
