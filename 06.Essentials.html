@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>06 - Conocimientos Esenciales | Rendering de Listas</title>
+
+    <style>
+        .i-b-list {
+            display: inline-block;
+            padding: 0 .5em;
+            width: 180px;
+            vertical-align: top;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <div id="app01">
+        <fieldset>
+            <legend><h3>Listas</h3></legend>
+            
+            <ul class="i-b-list">
+                <li v-for="color in colors">
+                    {{ color.color }}
+                </li>
+            </ul>
+            
+            <ul class="i-b-list">
+                <li v-for="(item, index) in colors">
+                    {{ index }} - {{ item.color }} <input type="color" v-bind:value="item.value">
+                </li>
+            </ul>
+
+            <!-- Iterar un objeto -->
+            <ul class="i-b-list">
+                <li v-for="value in objPersona">
+                    {{ value }}
+                </li>
+            </ul>
+
+            <ul class="i-b-list">
+                <li v-for="(value, key) in objPersona">
+                    {{ key }} : {{ value }}
+                </li>
+            </ul>
+
+            <ul class="i-b-list">
+                <li v-for="(value, key, index) in objPersona">
+                    {{ index }}. {{ key }} : {{ value }}
+                </li>
+            </ul>
+
+            <!-- Rango -->
+            <ul class="i-b-list">
+                <li v-for="n in 12">
+                    {{ n }} x 9 = {{ n * 9 }}
+                </li>
+            </ul>
+
+            <!-- Listas con condición -->
+            <ul class="i-b-list">
+                <li v-for="n in 12" v-if="n % 2 == 0">
+                    {{ n }}
+                </li>
+            </ul>
+
+        </fieldset>
+
+        <br>
+
+    </div>
+
+    <script>
+
+        /*
+        * Se usa la directiva "v-for" para generar una lista de elementos basada en una matriz.
+        * Requiere una sintaxis especial en forma de "elemento in elementos", donde los elementos son
+        * la matriz de datos y el elemento es un alias para el elemento de la matriz que se itera.
+        * 
+        * Se recomienda proporcionar un atributo "v-bind:key" con v-for siempre que sea posible, un valor
+        * ideal para "v-bind:key" sería la identificación única de cada elemento.
+        * 
+        * https://vuejs.org/v2/guide/list.html
+        */
+        const app01 = new Vue({
+            el : "#app01",
+            data : {
+                colors: [
+                    { color: "Red", value: "#FF0000" },
+                    { color: "Green", value: "#00FF00" },
+                    { color: "Blue", value: "#0000FF" },
+                    { color: "Cyan", value: "#00FFFF" },
+                    { color: "Magenta", value: "#FF00FF" },
+                    { color: "Yellow", value: "#FFFF00" },
+                    { color: "Black", value: "#000000" }
+                ],
+                objPersona : {
+                    first_name : "Wily",
+                    last_name : "Colon",
+                    age : 25
+                }
+            },
+            methods : {
+                // toogleLoginType : function () {
+                //     this.login_type = (this.login_type === 'user_name' ? 'email' : 'user_name')
+                // }
+            }
+        })
+
+    </script>
+</body>
+</html>
