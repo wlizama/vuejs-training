@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>07 - Conocimientos Esenciales | Manejo de Eventos</title>
+
+</head>
+<body>
+    
+    <div id="app01">
+        <fieldset>
+            <legend><h3>Manejo de Eventos</h3></legend>
+
+            <div>
+                <button v-on:click="contador += 1"><b>+ 1</b></button>
+                <div>Cantidad de Clicks {{ contador }}</div>
+            </div>
+
+            <br>
+
+            <div>
+                <button v-on:click="sayHi">Saludar {{ hand }}</button>
+            </div>
+
+            <br>
+
+            <div>
+                <button v-on:click="sayWord('Potato')">Decir "Potato"</button>
+                <button v-on:click="sayWord('Car')">Decir "Car"</button>
+            </div>
+
+            <br>
+
+            <div>
+                <button v-on:click="evtNativo('Simple alert', $event)">
+                    Esto captura el evento nativo con <code>$event</code>
+                </button>
+            </div>
+
+            <br>
+
+            <div>
+                <input v-on:keyup.enter="evtKey()" value="Event Key ENTER" />
+                <input v-on:keyup.13="evtKey()" value="Event Key 13" />
+            </div>
+
+        </fieldset>
+    </div>
+
+    <script>
+
+        /*
+        * Se usa la directiva "v-on" para escuchar eventos del DOM y ejecutar 
+        * JavaScript cuando se desencadenen.
+        * 
+        * Se puede invocar los métodos con app01.sayHi()
+        * https://vuejs.org/v2/guide/events.html
+        */
+        const app01 = new Vue({
+            el : "#app01",
+            data : {
+                contador : 0,
+                hand : "✋"
+            },
+            methods : {
+                sayHi : function (event) {
+                    alert(`Hola  rasputin ${this.hand}`)
+                    if (event)
+                        alert(`Enviado desde ${event.target.tagName}`)
+                },
+                sayWord : function (word) {
+                    alert(`¡${word}!`)
+                },
+                evtNativo : function (str, evt) {
+                    alert(str)
+                    if (evt)
+                        console.log("Se disparó evento nativo", evt)
+                },
+                evtKey : function () {
+                    alert("Se disparó al presionar ENTER")
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
