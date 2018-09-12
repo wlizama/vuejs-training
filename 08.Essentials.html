@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>08 - Conocimientos Esenciales | Input Forms</title>
+
+</head>
+<body>
+    
+    <div id="app01">
+        <fieldset>
+            <legend><h3>Input Forms</h3></legend>
+
+            <div>
+                <h4>Texto</h4>
+                <input v-model="input_text" placeholder="Ingresar texto" />
+                <div>Texto: {{ input_text }}</div>
+            </div>
+
+            <br>
+
+            <div>
+                <!-- La interpolación en textarea (<textarea> {{text}} </ textarea>)
+                     no funcionará. Use "v-model" en su lugar. -->
+                <h4>Multiline</h4>
+                <textarea v-model="text_area" placeholder="Ingresar texto"></textarea>
+                <div style="white-space: pre-line">Texto: {{ text_area }}</div>
+            </div>
+
+            <br>
+
+            <div>
+                <h4>Checkbox</h4>
+                <input type="checkbox" id="chk01" v-model="checkbox01" />
+                <label for="chk01">Checkbox en {{ checkbox01 }}</label>
+            </div>
+
+            <br>
+
+            <div>
+                <h4>Multi Checkbox</h4>
+                <div>
+                    <input type="checkbox" id="chkSugar" value="Sugar" v-model="multi_checkboxs" />
+                    <label for="chkSugar">Sugar</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="chkHoney" value="Honey" v-model="multi_checkboxs" />
+                    <label for="chkHoney">Honey</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="chkIced" value="Iced" v-model="multi_checkboxs" />
+                    <label for="chkIced">Iced</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="chkTea" value="Tea" v-model="multi_checkboxs" />
+                    <label for="chkTea">Tea</label>
+                </div>
+
+                <div>Checkeds {{ multi_checkboxs }}</div>
+            </div>
+
+            <br>
+
+            <div>
+                <h4>Radio Button</h4>
+                <input type="radio" id="rb01" value="Blue pill, the story ends" v-model="radios" />
+                <label for="rb01">Blue pill</label>
+
+                <input type="radio" id="rb02" value="Red pill, you stay in Wonderland" v-model="radios" />
+                <label for="rb02">Red pill</label>
+
+                <div>You take the {{ radios }}</div>
+            </div>
+
+            <br>
+            
+            <div>
+                <h4>Select</h4>
+
+                <select v-model="simple_select">
+                    <option disabled value="-1">Selecciona lo que se te antoja</option>
+                    <option>Salchipapa</option>
+                    <option>Turron</option>
+                    <option>Chanfaunita</option>
+                    <option>Papa rellena</option>
+                </select>
+
+                <div>Que se te antoja?</div> 
+                <div>{{ simple_select }}</div>
+            </div>
+
+            <div>
+                <h4>Multi Select</h4>
+
+                <select v-model="multi_select" multiple>
+                    <option>Salchipapa</option>
+                    <option>Turron</option>
+                    <option>Chanfaunita</option>
+                    <option>Papa rellena</option>
+                </select>
+
+                <div>Que se te antoja?</div> 
+                <div>{{ multi_select }}</div>
+            </div>
+
+        </fieldset>
+    </div>
+
+    <script>
+
+        /*
+        * "v-model" ignorará el inicial "value", "checked" o "selected" que se 
+        * encuentran en cualquier elemento del formulario. Siempre tratará los datos
+        * de la instancia de Vue como la fuente de la verdad. Debe declarar el valor
+        * inicial en el lado de JavaScript, dentro de la opción de "data" de su componente.
+        * 
+        * 
+        * https://vuejs.org/v2/guide/forms.html
+        */
+        const app01 = new Vue({
+            el : "#app01",
+            data : {
+                input_text : "",
+                text_area : "",
+                checkbox01 : false,
+                multi_checkboxs: [],
+                radios: "",
+                simple_select : "",
+                multi_select : []
+            },
+            methods : {
+            }
+        })
+
+    </script>
+</body>
+</html>

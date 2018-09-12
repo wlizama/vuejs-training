@@ -33,7 +33,7 @@
             
             <ul class="i-b-list">
                 <li v-for="(item, index) in colors">
-                    {{ index }} - {{ item.color }} <input type="color" v-bind:value="item.value">
+                    {{ index }} - {{ item.color }} <input type="color" v-model="item.value">
                 </li>
             </ul>
 
