@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>09 - Conocimientos Esenciales | Conceptos básicos de Componentes</title>
+
+</head>
+<body>
+    
+    <div id="app01">
+        <fieldset>
+            <legend><h3>Componente básico</h3></legend>
+
+            <button-counter></button-counter>
+            <button-counter></button-counter>
+            <button-counter></button-counter>
+
+            <br>
+        </fieldset>
+    </div>
+
+    <div id="app02">
+        <fieldset>
+            <legend><h3>Componente con propiedades</h3></legend>
+
+            <ul>
+                <vegetal-item 
+                    v-for="vegetal in vegetals"
+                    v-bind:key="vegetal.id"
+                    v-bind:text="vegetal.text">
+                </vegetal-item>
+            </ul>
+        </fieldset>
+    </div>
+
+    <div id="app03">
+        <fieldset>
+            <legend><h3>Componente emitir evento</h3></legend>
+
+            <blog-post
+                v-bind:post="post"
+                v-for="post in posts"
+                v-bind:key="post.id"
+                v-on:hacer-algo="onHacerAlgo">
+                texto porque si
+            </blog-post>
+        </fieldset>
+    </div>
+    
+    
+    <script>
+        // https://vuejs.org/v2/guide/components.html
+
+        /*
+        * Los componentes son instancias de Vue reutilizables con un nombre.
+        * Cada vez que usa un componente, se crea una nueva instancia.
+        * 
+        * La opción de datos de un componente debe ser una función, de modo que
+        * cada instancia pueda mantener una copia independiente del objeto de datos devuelto
+        */
+        Vue.component("button-counter", {
+            data : function () {
+                return {
+                    count: 0
+                }
+            },
+            template : '<button v-on:click="count++">Cantidad de clicks {{ count }}</button>'
+        })
+        new Vue({ el : "#app01" })
+
+        
+        Vue.component("vegetal-item", {
+            props : ["text"],
+            template : "<li>{{ text }}</li>" // Cada componente debe tener un único elemento raíz
+        })
+
+        new Vue({
+            el : "#app02",
+            data : {
+                vegetals : [
+                    { id: 1, text: "Tomato" },
+                    { id: 2, text: "Potato" },
+                    { id: 3, text: "Onion" },
+                    { id: 4, text: "Carrot" },
+                    { id: 5, text: "Lettuce" },
+                ]
+            }
+        })
+
+
+        Vue.component("blog-post", {
+            props : ["post"],
+            template: `
+                <div>
+                    <h3>{{ post.title }}</h3>
+                    <img v-bind:src="post.imageURL"/>
+                    <div>Puntos: {{ post.puntos }}</div>
+                    <p>{{ post.content }}</p>
+                    <button v-on:click="$emit('hacer-algo', post)">Este boton hace algo</button>
+                    <slot></slot>
+                    <hr>
+                </div>
+            `
+        })
+        new Vue({
+            el : "#app03",
+            data : {
+                posts : [
+                    {
+                        id: 1,
+                        title: "titulo 1", 
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                        puntos: 100,
+                        imageURL: "https://picsum.photos/200/300/?random" 
+                    },
+                    {
+                        id: 2,
+                        title: "titulo 2", 
+                        content: "Quo numquam possimus nulla asperiores eaque placeat reiciendis distinctio itaque",
+                        puntos: 89,
+                        imageURL: "https://picsum.photos/300/200/?random" 
+                    },
+                    {
+                        id: 3,
+                        title: "titulo 3", 
+                        content: "Tempore itaque quam, nostrum doloremque numquam velit laudantium qui ab accusantium ea.",
+                        puntos: 94,
+                        imageURL: "https://picsum.photos/240/360/?random"
+                    }
+                ]
+            },
+            methods : {
+                onHacerAlgo : function (post) {
+                    post.puntos += 1
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
