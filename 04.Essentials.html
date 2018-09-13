@@ -71,6 +71,19 @@
             vitae, nulla sapientelaudantium voluptas quaerat reprehenderit,
             cupiditate quia suscipit veritatis?
         </p>
+
+        <p v-bind:style="{ color: active_color, fontSize: font_size + 'px' }">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid ut expedita totam 
+            quasi! Corporis dolore eaque ducimus provident. Vel deserunt magni pariatur culpa 
+            natus ex facere praesentium nulla consequatur placeat.
+        </p>
+
+        <p v-bind:style="obj_style">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid ut expedita totam 
+            quasi! Corporis dolore eaque ducimus provident. Vel deserunt magni pariatur culpa 
+            natus ex facere praesentium nulla consequatur placeat.
+        </p>
+
     </div>
 
     <script>
@@ -86,7 +99,13 @@
                 ok_class : "ok",
                 error_class : "error",
                 warning_class : "warning",
-                icon_text_class : "icon-text"
+                icon_text_class : "icon-text",
+                active_color : "#00DD44",
+                font_size : 20,
+                obj_style : {
+                    color : "#00DD44",
+                    fontSize : "20px",
+                }
             },
             computed : {
                 class_computed : function () {
