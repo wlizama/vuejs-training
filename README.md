@@ -1,4 +1,4 @@
-# Python Training
+# VueJS Training
 
 Repositorio para pruebas con VueJS Framework
 
