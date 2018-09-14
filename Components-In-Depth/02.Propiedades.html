@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>02 - Components-In-Depth | Propiedades</title>
+</head>
+<body>
+    <fieldset id="app01">
+        <legend>Propiedades estáticas</legend>
+        <my-vue-component-01 textillo="Este es un textillo dentro de un componente Vue con una propiedad estática"></my-vue-component-01>
+    </fieldset>
+    
+
+    <fieldset id="app02">
+        <legend>Propiedades dinámicas</legend>
+        <my-vue-component-02 v-bind:textillo="textillo"></my-vue-component-02>
+    </fieldset>
+
+    <fieldset id="app03">
+        <legend>Propiedades y sus tipos</legend>
+        <image-post v-bind:imageurl="imageURL" v-bind:likes="15" ></image-post>
+    </fieldset>
+
+    <fieldset id="app04">
+        <legend>Validación de propiedades</legend>
+        <input-number 
+            v-for="inputObj in inputObjArr" 
+            v-bind:key="inputObj.id"
+            v-bind:label="inputObj.label"
+            v-bind:value="inputObj.value">
+        </input-number>
+    </fieldset>
+
+    <script>
+        // https://vuejs.org/v2/guide/components-props.html
+
+        /*
+        * 
+        */
+        Vue.component("my-vue-component-01", {
+            props : ["textillo"],
+            template: "<p>{{ textillo }}</p>"
+        })
+        new Vue({
+            el: "#app01"
+        })
+
+
+        /*
+        * La propiedad "textillo" se puede modificar "app02.textillo = 'nop'"
+        */
+        Vue.component("my-vue-component-02", {
+            props : ["textillo"],
+            template: "<p>{{ textillo }}</p>"
+        })
+        const app02 = new Vue({
+            el: "#app02",
+            data : {
+                textillo: "Este es un textillo dentro de un componente Vue con una propiedad estática"
+            }
+        })
+
+
+        /*
+        * Se puede enumerar las propiedades como un objeto, donde los nombres y valores
+        * contienen los nombres y tipos, respectivamente. Esto no solo documenta su el componente,
+        * sino que también advierte a los usuarios en la consola si pasan el tipo incorrecto.
+        */
+        Vue.component("image-post", {
+            props : {
+                imageurl : String,
+                likes: Number,
+                isPublished : Boolean,
+                comments: Array,
+                author : Object
+            },
+            template: `
+                <figure>
+                    <img v-bind:src="imageurl" height="320" width="240" />
+                    <div><b>{{ likes }}</b> Likes</div>
+                </figure>
+            `
+        })
+        const app03 = new Vue({
+            el: "#app03",
+            data : {
+                imageURL : "https://picsum.photos/240/320/?random"
+            }
+        })
+
+
+        /*
+        * Los componentes pueden especificar requerimietos para sus propiedades. Si no se cumple 
+        * un requerimieto, Vue le advertirá en la consola de JavaScript del navegador.
+        */
+        Vue.component("input-number", {
+            props : {
+                value: Number,
+                decimales : Number,
+                valoresNegativos: Boolean,
+                separadorMiles : {
+                    type : String,
+                    default: ","
+                },
+                label: {
+                    type : String,
+                    required : true
+                }
+            },
+            template: `
+                <div>{{ label }}<input v-bind:value="value" /></div>
+            `
+        })
+        const app04 = new Vue({
+            el: "#app04",
+            data : {
+                inputObjArr : [
+                    {
+                        id: 1, 
+                        label : "Edad",
+                        value : 0
+                    },
+                    {
+                        id: 2,
+                        label : "Talla (cm)",
+                        value : 0
+                    },
+                    {
+                        id: 3,
+                        label : "Peso (kg)",
+                        value : 0
+                    }
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
