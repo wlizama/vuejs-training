@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>01 - Components-In-Depth | Registro de componentes</title>
+</head>
+<body>
+    <fieldset id="app01">
+        <my-vue-component></my-vue-component>
+        <my-vue-component></my-vue-component>
+        <my-vue-component></my-vue-component>
+
+        <!-- Los componentes locales solo se pueden usar dentro del instancia
+             raiz, esto causará un error
+        -->
+        <!-- <component-a></component-a> -->
+
+    </fieldset>
+    
+    <br>
+
+    <fieldset id="app02">
+
+        <my-vue-component></my-vue-component>
+        
+        <component-a></component-a>
+        <component-b></component-b>
+        <component-c></component-c>
+    </fieldset>
+
+    <script>
+        // https://vuejs.org/v2/guide/components-registration.html
+
+        /*
+        * Este componente está registrado globalmente. Eso significa que se pueden usar
+        * en cualquier instancia raíz de Vue "new Vue({})"
+        */
+        Vue.component("my-vue-component", {
+            template: "<p>Hola soy un simple componente en VueJS</p>"
+        })
+        new Vue({
+            el: "#app01"
+        })
+
+
+        var ComponentA = {
+            template: "<section>Component A</section>"
+        }
+        var ComponentB = {
+            template: "<section>Component B</section>"
+        }
+        var ComponentC = {
+            template: "<section>Component C</section>"
+        }
+        new Vue({
+            el : "#app02",
+            components : {
+                "component-a" : ComponentA,
+                "component-b" : ComponentB,
+                "component-c" : ComponentC,
+            }
+        })
+    </script>
+</body>
+</html>
