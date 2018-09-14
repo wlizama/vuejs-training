@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>03 - Components-In-Depth | Eventos personalizados</title>
+</head>
+<body>
+    <fieldset id="app01">
+        <legend>Nombres de eventos</legend>
+        <component-evt-01 v-on:my-evt-01="onMyEvent01"></component-evt-01>
+    </fieldset>
+    
+    <script>
+        // https://vuejs.org/v2/guide/components-custom-events.html
+
+        /*
+        * 
+        */
+        Vue.component("component-evt-01", {
+            template: `<button v-on:click="$emit('my-evt-01')">Boton con evento personalizado</button>`
+        })
+        new Vue({
+            el: "#app01",
+            methods : {
+                onMyEvent01 : function () {
+                    console.log("evento personalizado");
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
