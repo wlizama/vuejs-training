@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+
+    <title>01 - Transitions-and-Animation | Transición de elementos individuales / componentes</title>
+
+    <style>
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s;
+        }
+        .fade-enter, .fade-leave-to {
+            opacity: 0;
+        }
+
+        .bounce-enter-active {
+            animation: bounce-in .5s;
+        }
+        .bounce-leave-active {
+            animation: bounce-in .5s reverse;
+        }
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <fieldset id="app01">
+        <legend>Transiciones</legend>
+
+        <button v-on:click="show = !show">Mostrar elemento</button>
+        <transition name="fade">
+            <div v-if="show">Mostrarme ☺</div>
+        </transition>
+    </fieldset>
+
+    <fieldset id="app02">
+        <legend>Animaciones</legend>
+
+        <button v-on:click="show = !show">Mostrar elemento</button>
+        <transition name="bounce">
+            <div v-if="show">Mostrarme ☻</div>
+        </transition>
+    </fieldset>
+
+    <fieldset id="app03">
+        <legend>Animaciones con classes</legend>
+
+        <button v-on:click="show = !show">Mostrar elemento</button>
+        <transition
+            name="custom-classes-transition"
+            enter-active-class="animated tada"
+            leave-active-class="animated bounceOutRight">
+            <p v-if="show">Mostrarme •_○</p>
+        </transition>
+    </fieldset>
+    
+    <script>
+        // https://vuejs.org/v2/guide/transitions.html
+
+        /*
+        * Transiciones
+        */
+        new Vue({
+            el : "#app01",
+            data : {
+                show : false
+            }
+        })
+
+
+        /*
+        * Animaciones
+        */
+        new Vue({
+            el : "#app02",
+            data : {
+                show : false
+            }
+        })
+
+
+        /*
+        * Animaciones
+        */
+        new Vue({
+            el : "#app03",
+            data : {
+                show : false
+            }
+        })
+
+
+    </script>
+</body>
+</html>
