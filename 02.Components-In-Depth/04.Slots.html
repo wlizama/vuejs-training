@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>04 - Components-In-Depth | Slots</title>
+</head>
+<body>
+    <fieldset id="app01">
+        <legend>Slots</legend>
+        <custom-body>
+            <custom-header v-bind:title="title"></custom-header>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit
+                quibusdam possimus perspiciatis alias maiores, officia voluptates
+                adipisci, odio optio laborum eius nostrum itaque amet vel qui
+                error iure minima porro.
+            </p>
+        </custom-body>
+    </fieldset>
+    
+    <fieldset id="app02">
+        <legend>Nombrando Slots</legend>
+        <custom-layout v-bind:headertext="headertext" v-bind:asidetitle="asidetitle">
+            <template slot="navi">
+                <ul>
+                    <li v-for="menus_item in menus_items">{{ menus_item }}</li>
+                </ul>
+            </template>
+            <template slot="asi">
+                <ul>
+                    <li v-for="content_title in content_titles">{{ content_title }}</li>
+                </ul>
+            </template>
+            <template slot="conti">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad,
+                facere. Obcaecati, labore? Quas reiciendis ducimus itaque ut
+                nam, perspiciatis quod ullam, rerum illo blanditiis nobis 
+                doloribus accusantium aspernatur numquam possimus?
+            </template>
+            <template slot="footi">
+                <div><code>@me</code> - Copyright</div>
+            </template>
+            texto fuera
+        </custom-layout>
+    </fieldset>
+    <script>
+        // https://vuejs.org/v2/guide/components-slots.html
+
+        /*
+        * Los elementos dentro de las etiquetas del componente seran reemplazados
+        * segun donde este <slot></slot> en la opción "template", puede ser incluso otro componente
+        */
+        Vue.component("custom-body", {
+            template: `<section>
+                <slot></slot>
+            </section>`
+        })
+        Vue.component("custom-header", {
+            props: ["title"],
+            template: `<header>
+                <h1>{{ title }}</h1>
+            </header>`
+        })
+
+        new Vue({
+            el : "#app01",
+            data : {
+                title : "Super título"
+            }
+        })
+
+        /*
+        * El atributo "name" de un "slot" puede identificarlo para su implementación
+        * esto es util cuando tenemos muchos "slot" si uno no tiene dicho atributo se
+        * tomará como "slot" por defecto
+        */
+        Vue.component("custom-layout", {
+            props: ["headertext", "asidetitle"],
+            template: `<section>
+                <header>{{ headertext }}</header>
+                <nav>
+                    <slot name="navi"></slot>
+                </nav>
+                <aside>
+                    <h3>{{ asidetitle }}</h3>
+                    <slot name="asi"></slot>
+                </aside>
+                <div>
+                    <slot name="conti"></slot>
+                </div>
+                <slot></slot>
+                <footer>
+                    <slot name="footi"></slot>
+                </footer>
+            </section>`
+        })
+        new Vue({
+            el : "#app02",
+            data : {
+                headertext : "Layout con atributos \"name\" en Slot",
+                menus_items : [
+                    "Home",
+                    "Edit",
+                    "View",
+                    "Help",
+                ],
+                asidetitle : "Lista de Contenido",
+                content_titles : [
+                    "Lorem ipsum dolor sit elit",
+                    "Obcaecati quibusdam recusandae dignissimos consectetur",
+                    "Illo reiciendis saepe Dolore totam vel iusto blanditiis",
+                    "Mollitia perferendis voluptates maiores fugit rem eius molestiae atque",
+                    "Perferendis voluptates  amet consectetur adipisicing"
+                ]
+            }
+        })
+
+
+    </script>
+</body>
+</html>
