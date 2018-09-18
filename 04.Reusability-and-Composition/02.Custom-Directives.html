@@ -15,6 +15,13 @@
         <legend>Directivas personalizadas</legend>
 
         <input type="text" v-focus>
+
+        <anchored-heading v-bind:level="1">Super heading</anchored-heading>
+        <anchored-heading v-bind:level="2">Super heading</anchored-heading>
+        <anchored-heading v-bind:level="3">Super heading</anchored-heading>
+        <anchored-heading v-bind:level="4">Super heading</anchored-heading>
+        <anchored-heading v-bind:level="5">Super heading</anchored-heading>
+        <anchored-heading v-bind:level="6">Super heading</anchored-heading>
     </fieldset>
 
     <script>
@@ -30,6 +37,21 @@
             }
         })
 
+
+        Vue.component('anchored-heading', {
+            render: function (createElement) {
+                return createElement(
+                    'h' + this.level,   // tag name
+                    this.$slots.default // array of children
+                    )
+            },
+            props: {
+                level: {
+                    type: Number,
+                    required: true
+                }
+            }
+        })
         new Vue({
             el: "#app01",
         })
