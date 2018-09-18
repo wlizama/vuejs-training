@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>02 - Reusability-and-Composition | Directivas personalizadas</title>
+
+</head>
+<body>
+    <fieldset id="app01">
+        <legend>Directivas personalizadas</legend>
+
+        <input type="text" v-focus>
+    </fieldset>
+
+    <script>
+        // https://vuejs.org/v2/guide/custom-directive.html
+
+        /*
+        * Directivas personalizadas
+        */
+        Vue.directive("focus", {
+            // Cuando el elemento enlazado se inserta en el DOM ...
+            inserted : function (elm) {
+                elm.focus()
+            }
+        })
+
+        new Vue({
+            el: "#app01",
+        })
+    </script>
+</body>
+</html>
