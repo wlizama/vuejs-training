@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <title>Vue y Ajax</title>
+
+    <style>
+        .i-block {
+            display: inline-block;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <div id="app01">
+        <section class="i-block">
+            <fieldset>
+                <legend>Lista de usuarios</legend>
+                <ul>
+                    <li v-for="user in user_list">
+                        <div><b>Usuario: </b>{{ user.name }}</div>
+                        <div><b>Username: </b>{{ user.username }}</div>
+                        <div><b>E-mail: </b>{{ user.email }}</div>
+                        <div><b>Teléfono: </b>{{ user.phone }}</div>
+                        <div><b>Sitio web: </b>{{ user.website }}</div>
+                        <br>
+                    </li>
+                </ul>
+            </fieldset>
+            
+        </section>
+
+        <section class="i-block">
+            <fieldset>
+                <legend>
+                    <a href="#" v-on:click="toogle_result">Mostrar resultado JSON</a>
+                </legend>
+                <pre v-if="show_result_json">{{ user_list }}</pre>
+                <div v-else>Se obtubieron {{ user_list.length }} registros</div>
+            </fieldset>
+        </section>
+    </div>
+
+    <script>
+        const URL_API = "https://jsonplaceholder.typicode.com/users"
+
+        new Vue({
+            el : "#app01",
+            created: function () {
+                this.getUsersList()
+            },
+            data : {
+                user_list : [],
+                show_result_json  : true
+            },
+            methods : {
+                getUsersList : function () {
+                    axios.get(URL_API)
+                    .then(response => {
+                        this.user_list = response.data
+                    })
+                },
+                toogle_result : function () {
+                    this.show_result_json = !this.show_result_json
+                }
+            }
+        })
+    </script>
+</body>
+</html>
