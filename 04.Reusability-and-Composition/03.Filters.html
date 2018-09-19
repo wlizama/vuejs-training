@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>03 - Reusability-and-Composition | Filtros</title>
+
+</head>
+<body>
+    <fieldset id="app01">
+        <legend>Filtros</legend>
+
+        <input type="text" v-model="textillo">
+        <div>{{ textillo | capitalize }}</div>
+
+        <div>{{ textillo | capitalize2 }}</div>
+
+        <div>{{ textillo | capitalize | reverse }}</div>
+    </fieldset>
+
+    <script>
+        // https://vuejs.org/v2/guide/filters.html
+
+        /*
+        * Filtros sirven para aplicar el formato de texto común.
+        * Los filtros se pueden usar en dos lugares interpolaciones mustache {{}} y
+        * expresiones "v-bind", se donotan por el simbolo "pipa" |
+        * Pueden concatenarse
+        */
+
+        // Se puede definir globalmente antes de crear la instancia Vue
+        Vue.filter('capitalize2', function (value) {
+            if (!value) return ''
+            value = value.toString()
+            return value.charAt(0).toUpperCase() + value.slice(1)
+        })
+
+
+        new Vue({
+            el: "#app01",
+            data : {
+                textillo : "wily"
+            },
+            filters : {
+                capitalize : function (value) {
+                    if (!value) return ""
+                    value = value.toString()
+                    return value.charAt(0).toUpperCase() + value.slice(1)
+                },
+                reverse : function (value) {
+                    if (!value) return ""
+                    value = value.toString()
+                    return value.split("").reverse().join("")
+                }
+            }
+        })
+    </script>
+</body>
+</html>
