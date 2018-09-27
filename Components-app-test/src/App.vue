@@ -11,6 +11,7 @@
 
 <script>
     import MyRange from "./components/MyRange.vue"
+    import "animate.css"
 
     export default {
         name: "mainApp",

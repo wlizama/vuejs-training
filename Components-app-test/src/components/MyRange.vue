@@ -1,11 +1,11 @@
 <template>
-    <div class="range">
+    <div class="range my-bg">
         <div class="input-range">
             <input type="range" v-model="conf.value" :min="conf.min" :max="conf.max" :step="conf.step">
             <span>{{ conf.value }}</span>
         </div>
         <slot></slot>
-        <div class="buttons-inc-dec" v-if="conf.show_incrementals">
+        <div class="buttons-inc-dec animated bounceIn" v-if="conf.show_incrementals">
             <button @click="rangeIncDec('inc')">+</button>
             <button @click="rangeIncDec('dec')">-</button>
         </div>
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+    import styl from "../styles/common.css"
+
     export default {
         name : "myrange",
         props : {
