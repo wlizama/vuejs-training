@@ -1,30 +1,45 @@
 <template>
     <section>
-        <div class="colored" @click="mostrar">{{ textillo }}</div>
-        <div v-if="is_mostrar">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dolorum quibusdam magnam nesciunt voluptate similique earum provident explicabo hic maxime. Culpa vel debitis qui beatae velit laboriosam, ratione obcaecati veniam?</div>
+        <div class="title-head">{{ title }}</div>
+        <MyRange :conf="range_conf">
+            <div>
+                <a href="#" @click="mostrarIncrementals">{{text_increm}}</a>
+            </div>
+        </MyRange>
     </section>
 </template>
 
 <script>
+    import MyRange from "./components/MyRange.vue"
 
     export default {
         name: "mainApp",
         data () {
             return {
-                textillo : "lorem",
-                is_mostrar : false
+                title : "Range Testing",
+                text_increm : "Mostrar Incrementales",
+                range_conf : {
+                    value : 0,
+                    // min: 0, 
+                    // max: 100,
+                    step: 1,
+                    show_incrementals: false
+                }
             }
         },
         methods : {
-            mostrar () {
-                this.is_mostrar = !this.is_mostrar
+            mostrarIncrementals () {
+                this.range_conf.show_incrementals = !this.range_conf.show_incrementals
             }
+        },
+        components : {
+            MyRange
         }
     }
 </script>
 
-<style>
-    .colored {
+<style scoped>
+    .title-head {
         color: darkorange;
         font-size: 25px
     }
