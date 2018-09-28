@@ -16,7 +16,7 @@
     import styl from "../styles/common.css"
 
     export default {
-        name : "myrange",
+        name : "myRange",
         props : {
             conf : {
                 // tipos

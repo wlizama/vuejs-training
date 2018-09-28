@@ -1,17 +1,13 @@
 var path = require('path')
-var webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
     entry: './src/main.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'js/[name].js', // .[hash:8]
-        publicPath: path.resolve(__dirname, 'dist') + "/",
-        chunkFilename: 'js/[id].js', // .[chunkhash:8]
+        publicPath: '/dist/',
+        filename: 'js/[name].js',
     },
     module: {
         rules: [
@@ -40,20 +36,13 @@ module.exports = {
             }
         ]
     },
+    devtool: 'inline-source-map',
     devServer: {
-        port: 3179
+        port: 3179,
     },
-    performance: {
-        hints: false
-    },
+    mode: 'development',
     plugins: [
         new VueLoaderPlugin(),
-        new ExtractTextPlugin("css/[name].css"), // .[hash:8].min
-        new OptimizeCssAssetsPlugin({
-            cssProcessorPluginOptions: {
-                preset: ['default', { discardComments: { removeAll: true } }],
-            },
-        }),
-        new CleanWebpackPlugin(['dist'], {root: __dirname})
+        new ExtractTextPlugin("css/[name].css"),
     ]
 }
