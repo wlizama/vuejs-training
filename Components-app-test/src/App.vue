@@ -6,11 +6,14 @@
                 <a href="#" @click="mostrarIncrementals">{{text_increm}}</a>
             </div>
         </MyRange>
+
+        <MyImage />
     </section>
 </template>
 
 <script>
     import MyRange from "./components/MyRange.vue"
+    import MyImage from "./components/MyImage.vue"
     import "animate.css"
 
     export default {
@@ -34,7 +37,8 @@
             }
         },
         components : {
-            MyRange
+            MyRange,
+            MyImage
         }
     }
 </script>
