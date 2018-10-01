@@ -1,11 +1,13 @@
 <template>
     <figure>
-        <img src="../images/screenshot01.png" alt="Super captura de pantalla">
+        <img :src="attrbs.img_src" :alt="attrbs.img_alt_text">
+        <figcaption>{{attrbs.caption_text}}</figcaption>
     </figure>
 </template>
 
 <script>
     export default {
-        name : "myImage"
+        name : "myImage",
+        props : ["attrbs"]
     }
 </script>

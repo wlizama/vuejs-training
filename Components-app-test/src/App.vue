@@ -7,7 +7,7 @@
             </div>
         </MyRange>
 
-        <MyImage />
+        <MyImage :attrbs="image_conf" />
     </section>
 </template>
 
@@ -15,6 +15,7 @@
     import MyRange from "./components/MyRange.vue"
     import MyImage from "./components/MyImage.vue"
     import "animate.css"
+    import my_img from "./images/screenshot01.png"
 
     export default {
         name: "mainApp",
@@ -28,6 +29,11 @@
                     // max: 100,
                     step: 1,
                     show_incrementals: false
+                },
+                image_conf : {
+                    img_src : my_img,
+                    img_alt_text : "Súper Texto alternativo",
+                    caption_text : "Tengo 16GB de RAM started pack, pero en la computadora de la oficina :'("
                 }
             }
         },
