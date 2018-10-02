@@ -50,7 +50,7 @@ module.exports = {
         ]
     },
     devServer: {
-        port: 3179
+        port: 8090
     },
     performance: {
         hints: false
